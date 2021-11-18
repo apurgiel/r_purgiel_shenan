@@ -1,0 +1,202 @@
+---
+title: "Mindfullness Calendar"
+author: "Andrew Purgiel"
+date: "11/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(gridExtra)
+```
+
+```{r}
+# rach_df <- list(
+#   c(task = 'task1', foot = NA, pic = NA, other = F),
+#   c(task = 'task2', foot = NA, pic = NA, other = F),
+#   c(task = 'task asdfjhsadfj\naslkdjf alksdfj asdf lasasdflk jasdlkfj', foot = NA, pic = NA, other = F),
+#   c(task = 'task asdfjhsadfj\naslkdjf a jasdlkfj', foot = NA, pic = NA, other = F),
+#   c(task = 'tasaslkdjf alksdfj asdf lasasdflk jasdlkfj', foot = NA, pic = NA, other = F),
+#   c(task = 'task asdfjhsadfj\naslkdjf alksdfj asdf lasasdflk jasdlkfj', foot = NA, pic = NA, other = F),
+#   c(task = 'task3', foot = NA, pic = NA, other = F),
+#   c(task = 'task4', foot = NA, pic = NA, other = F)
+# 
+# ) %>%
+#   bind_rows()
+
+
+
+
+rach_df <- list(
+  data.frame(task = "List 5 things about yourself\nthat are pretty rad.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Name one thing that you'll do\ntomorrow better than you did today.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Forgive yourself for\nsomething you've done.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Forgive someone else for\nsomething they've done.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Tell someone why you're\nhappy they're in your life.", foot = NA, pic = NA, other = F),  
+   data.frame(task = "List 10 things you're thankful for.", foot = NA, pic = NA, other = F),
+     data.frame(task = "Keep a mood diary\n for the day.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Complement a stranger.", foot = NA, pic = NA, other = F),    
+  data.frame(task = "Call someone you haven't\nspoken to in a while.", foot = NA, pic = NA, other = F),    
+  data.frame(task = "Pray for 4 people.", foot = NA, pic = NA, other = F),    
+  data.frame(task = "Perform a random act of kindness.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Cook something you've never\ncooked before.", foot = NA, pic = NA, other = F),
+      data.frame(task = "Cook one of your favorite meals.", foot = NA, pic = NA, other = F),
+      data.frame(task = "Cook a meal with your crops,\ny'old farmer lady.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Note 5 things in your yard that\nyou've never noticed before.", foot = NA, pic = NA, other = F),    
+  data.frame(task = "Mail someone a letter for\no apparent reason.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Complete a task that\nyou've failed at previously.", foot = NA, pic = NA, other = F),  
+    data.frame(task = "Do something purely for the nostalgia.", foot = NA, pic = NA, other = F),  
+  
+      data.frame(task = "Watch a VHS (or something\nwe used to have on VHS).", foot = NA, pic = NA, other = F), 
+  
+      data.frame(task = "Check out some live music.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Do something you never got\n to do as a kid.", foot = NA, pic = NA, other = F),
+      data.frame(task = "Refrain from doing anything stressful today.", foot = NA, pic = NA, other = F),
+      data.frame(task = "Sit in the sun\nfor an hour.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Cross something off the to-do list\nthat you've been putting off.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Accept help from someone at work\nwith items on your to-do list.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Lose a 'debate'.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Follow a friend's advice.", foot = NA, pic = NA, other = F),
+  
+  
+       data.frame(task = "List some goals for tomorrow.", foot = NA, pic = NA, other = F),
+   data.frame(task = "List some goals for the week", foot = NA, pic = NA, other = F),
+   data.frame(task = "List some goals for the year", foot = NA, pic = NA, other = F),
+  
+  
+  
+       data.frame(task = "Watch or listen to 15 minutes each of\n'conservative' and 'liberal' news.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "(On a day when you're frustrated/anxious)\nRemember the feeling is always temporary.", foot = NA, pic = NA, other = F),  
+    data.frame(task = "Give yourself a high five\nfor conquering an anxiety attack.\nFrick yeah, buddy.", foot = NA, pic = NA, other = F),
+      data.frame(task = "Cry from laughing too hard.", foot = NA, pic = NA, other = F),
+  
+  
+  data.frame(task = "Volunteer somewhere.\nDouble points for meals on wheels.", foot = NA, pic = NA, other = F),
+     data.frame(task = "Spend an hour on a gift for someone.", foot = NA, pic = NA, other = F),  
+  
+     data.frame(task = "Make a conscious attempt to not be the\none to break an awkward silence.", foot = NA, pic = NA, other = F),  
+  
+  data.frame(task = "Go to bed early.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Watch the sunset from start to finish\nwithout going blind.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Go 24 hours without alcohol.\nYou can make up for it tomorrow.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Spend some time cleaning the house.\nExtra points if done with Nick and Mitchell.", foot = NA, pic = NA, other = F),  
+  data.frame(task = "Play some VR with Mitchell.", foot = NA, pic = NA, other = F),  
+   data.frame(task = "Have a date night with the hubby.\nTell him I'm sorry for missing it.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Set aside a day to hang\nwith Nick and Mitchell.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Take Mika somewhere she's\n never walked before.", foot = NA, pic = NA, other = F),  
+  
+    data.frame(task = "Reflect on your day\nfor 15 minutes.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Drive alone without music and\nphone for 20 minutes.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Listen to a genre of music you\ntypically don't listen to.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Turn your phone off for 4 hours.", foot = NA, pic = NA, other = F),
+   data.frame(task = "Turn your phone off for 8 hours.", foot = NA, pic = NA, other = F),
+   data.frame(task = "Leave your phone at home\nwhen you go for a walk.", foot = NA, pic = NA, other = F),  
+  data.frame(task = "Don't answer the phone today.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Don't use snapchat today.", foot = NA, pic = NA, other = F),
+
+    data.frame(task = "Go 4 hours without vaping.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Go 8 hours without vaping.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Go a day without vaping.", foot = NA, pic = NA, other = F),
+
+  
+  data.frame(task = "Go 24 hours without talking.\nGood luck.", foot = NA, pic = NA, other = F),  
+  
+  data.frame(task = "Listen to a song while doing\nabsolutely nothing else.", foot = NA, pic = NA, other = F),
+     data.frame(task = "Dance to a song when\nyou're by yourself.", foot = NA, pic = NA, other = F),
+   data.frame(task = "Dance to a song\nwith someone else.", foot = NA, pic = NA, other = F),
+   data.frame(task = "COMPLETELY BELT OUT a song\n when you're by yourself.", foot = NA, pic = NA, other = F),  
+   data.frame(task = "Sing (or try to sing) a song\nfrom start to finish.", foot = NA, pic = NA, other = F),
+   data.frame(task = "Share a song with someone who\nyou think will like it.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Make a song verse,\n or a poem, I guess...", foot = NA, pic = NA, other = F),  
+     data.frame(task = "Daaance byyy da liiight\no' da moooooooooon.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Throw a snowball at someone.", foot = NA, pic = NA, other = F),
+
+  data.frame(task = "Drink some beer\non the porch.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Call a cousin unexpectedly.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Start a Purgiel 15 roll call.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Meet up with some Tam crew peeps.", foot = NA, pic = NA, other = F),
+    data.frame(task = "Make one of those weird pickle, mayo,\npeanut butter, cheese+dorrito sammiches.", foot = NA, pic = NA, other = F),
+  
+     data.frame(task = "Make (or attempt) a dying cow noise. Bonus\npoints if done while pikcing up Mitchell.", foot = NA, pic = NA, other = F),
+     data.frame(task = "Do something in public to embarass Mitchell.", foot = NA, pic = NA, other = F),
+       data.frame(task = "Do something in public to embarass Nick.", foot = NA, pic = NA, other = F),
+  data.frame(task = "List all the Popsisms you can think of.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Tell an inside joke that no\none who's present will get.", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Play some dice. YARRRRR!", foot = NA, pic = NA, other = F),
+  
+  data.frame(task = "Speak French to someone for >2 minutes.\nNo, it doesn't have to make sense.", foot = NA, pic = NA, other = F),
+ 
+  data.frame(task = "Be too lazy to do\none of these tasks today.", foot = NA, pic = NA, other = F),  
+  data.frame(task = "Forget to do one of\nthese tasks today.", foot = NA, pic = NA, other = F),
+  data.frame(task = "Attempt and fail one\nof these tasks today.", foot = NA, pic = NA, other = F),
+     data.frame(task = "Let me know what you think the\nstupidest/ridiculousest task on here is.", foot = NA, pic = NA, other = F)
+)
+
+```
+
+
+
+```{r, fig.height=24, fig.width = 24}
+
+plots <- map(rach_df[], function(x){
+
+  data <- x
+  ggplot(data)+
+  geom_tile(aes(x = 0, y = 2.55, width = 2, height = 1))+
+  geom_text(aes(label = task), x = 0, y = 2, vjust = 1, hjust = 0.5,
+            size = 12)+
+    theme_classic()+
+  coord_cartesian(xlim = c(-1,1), ylim = c(0,3.5))+
+    theme(
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      axis.line = element_blank(),
+      plot.margin=unit(c(-0.5,0,-0.5,0), "in")
+    )+
+    labs(x = NULL, y = NULL)
+
+}
+)
+
+
+
+do.call('grid.arrange', c(plots, list(ncol = 5)))
+
+# ggarrange(plots[1], plots[2], ncol = 3)
+  
+  
+
+
+
+```
+
+
+```{r}
+
+funs <- c(sin, tan, cos)
+DF <- data.frame(x=c(0, 10))
+
+g <- lapply(funs, function(fun, df) {
+  ggplot(df, aes(x)) + stat_function(fun=fun)
+}, df=DF)
+
+#g[[4]] <- tableGrob(data.frame(x = 1:10, y = 2:11, z = 3:12))
+#better for programmatic use:
+g <- c(g, list(tableGrob(data.frame(x = 1:10, y = 2:11, z = 3:12))))
+
+do.call(grid.arrange, g)
+```
+
