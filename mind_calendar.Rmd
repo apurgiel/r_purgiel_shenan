@@ -23,11 +23,11 @@ library(gridExtra)
 ```{r, eval = TRUE}
 # set variables for rach_cal
 
-rach_height <- 24
-rach_width <- 24
+rach_height <- 17
+rach_width <- 17
 
-foco_height <- 24
-foco_width <- 24
+foco_height <- 17
+foco_width <- 17
 
 ```
 
@@ -46,21 +46,21 @@ rach_df <- list(
   
   
   
-  data.frame(task = "(On a day when you're frustrated/anxious)\nRemember the feeling\nis always temporary.", foot = NA, pic = 'deepskyblue', other = F),
+  # data.frame(task = "(On a day when you're frustrated/anxious)\nRemember the feeling\nis always temporary.", foot = NA, pic = 'deepskyblue', other = F),
   
   
   
-    data.frame(task = "High-5 yoself for conquering\nan anxiety attack.\nFrick yeah, buddy.", foot = NA, pic = 'deepskyblue', other = F),  
+    data.frame(task = "High-5 yourself for conquering\nan anxiety attack.\nFrick yeah, buddy.", foot = NA, pic = 'deepskyblue', other = F),  
     data.frame(task = "Reflect on your day\nfor 15 minutes.", foot = NA, pic = 'deepskyblue', other = F),  
+     data.frame(task = "Research something that\ninterests you.", foot = NA, pic = 'deepskyblue', other = F),  
   
   
-  
-      data.frame(task = "Refrain from doing\nanything stressful today", foot = NA, pic = 'deepskyblue', other = F),
+      data.frame(task = "Hang out by the water.", foot = NA, pic = 'deepskyblue', other = F),
   
   
   
       data.frame(task = "Sit in the sun\nfor an hour.", foot = NA, pic = 'deepskyblue', other = F),
-    data.frame(task = "Do something purely for\nthe nostalgia.", foot = NA, pic = 'deepskyblue', other = F),  
+    # data.frame(task = "Do something purely for\nthe nostalgia.", foot = NA, pic = 'deepskyblue', other = F),  
        data.frame(task = "Watch or listen to 15 min\neach of 'conservative'\nand 'liberal' news.", foot = NA, pic = 'deepskyblue', other = F),  
   data.frame(task = "Do something you never\ngot the chance\nto do as a kid.", foot = NA, pic = 'deepskyblue', other = F),
 
@@ -70,13 +70,13 @@ rach_df <- list(
   
   
   
-       data.frame(task = "List some goals for tomorrow.", foot = NA, pic = 'cyan', other = F),
+       # data.frame(task = "List some goals for tomorrow.", foot = NA, pic = 'cyan', other = F),
    data.frame(task = "List some goals for the week", foot = NA, pic = 'cyan', other = F),
    data.frame(task = "List some goals for the year", foot = NA, pic = 'cyan', other = F),
   data.frame(task = "Cross something off the to-do\nlist that you've been\nputting off.", foot = NA, pic = 'cyan', other = F),
   
   
-  data.frame(task = "Accept help from someone\nat work with items on\nyour to-do list.", foot = NA, pic = 'cyan', other = F),
+  data.frame(task = "Accept help from someone at\nwork with something you'd\ntypically do alone", foot = NA, pic = 'cyan', other = F),
   
   
   
@@ -96,39 +96,38 @@ rach_df <- list(
 
 
 
-
+  data.frame(task = "Have a zero FODMAP day,\n...if possible.", foot = NA, pic = 'chocolate1', other = F),
   data.frame(task = "Cook something you've never\ncooked before.", foot = NA, pic = 'chocolate1', other = F),
   data.frame(task = "Cook one of your favorite meals.", foot = NA, pic = 'chocolate1', other = F),
       data.frame(task = "Cook a meal with your crops,\ny'old farmer lady.", foot = NA, pic = 'chocolate1', other = F),
+      data.frame(task = "Give names to some of\nyour crops. Just don't\ngrow too attached.", foot = NA, pic = 'chocolate1', other = F),
   data.frame(task = "Cry from laughing too hard.", foot = NA, pic = 'chocolate1', other = F),
     data.frame(task = "Throw a snowball at someone.", foot = NA, pic = 'chocolate1', other = F),
   data.frame(task = "Drink some beer\non the porch.", foot = NA, pic = 'chocolate1', other = F),
   data.frame(task = "Tell an inside joke that no\none who's present will get.", foot = NA, pic = 'chocolate1', other = F),
-  
-     # data.frame(task = "Make a conscious attempt to not be the\none to break an awkward silence.", foot = NA, pic = 'chocolate1', other = F),  
+  data.frame(task = "Throw your mashed potatoes\nup against the wall.", foot = NA, pic = 'chocolate1', other = F),    
+      data.frame(task = "Find a shooting star.", foot = NA, pic = 'chocolate1', other = F),  # data.frame(task = "Make a conscious attempt to not be the\none to break an awkward silence.", foot = NA, pic = 'chocolate1', other = F),  
   
   data.frame(task = "Watch the sunset\nfrom start to finish\nwithout going blind.", foot = NA, pic = 'chocolate1', other = F),
-
-  
+  data.frame(task = "Watch the sunrise.", foot = NA, pic = 'chocolate1', other = F),  
   
   data.frame(task = "Spend time cleaning the house.\nExtra points if done\nwith Nick and Mitchell.", foot = NA, pic = 'plum2', other = F),  
   data.frame(task = "Play some VR with Mitchell.", foot = NA, pic = 'plum2', other = F),  
    data.frame(task = "Have a date night with the hubby.\nTell him I'm sorry for missing it.", foot = NA, pic = 'plum2', other = F),
     data.frame(task = "Set aside a day to hang\nwith Nick and Mitchell.", foot = NA, pic = 'plum2', other = F),
   data.frame(task = "Take Mika somewhere she's\n never walked before.", foot = NA, pic = 'plum2', other = F),  
-  
-
+  data.frame(task = "Have someone else do\nthe dishes tonight, 'cause\nyou cooked, dammit.", foot = NA, pic = 'plum2', other = F),
 
 
   
   data.frame(task = "Turn your phone off for 4 hours.", foot = NA, pic = 'seagreen1', other = F),
-   data.frame(task = "Turn your phone off for 8 hours.", foot = NA, pic = 'seagreen1', other = F),
+   # data.frame(task = "Turn your phone off for 8 hours.", foot = NA, pic = 'seagreen1', other = F),
    data.frame(task = "Leave your phone at home\nwhen you go for a walk.", foot = NA, pic = 'seagreen1', other = F),  
   data.frame(task = "Don't answer the phone today.", foot = NA, pic = 'seagreen1', other = F),
   data.frame(task = "Don't use snapchat today.", foot = NA, pic = 'seagreen1', other = F),
 
     data.frame(task = "Go 4 hours without vaping.", foot = NA, pic = 'seagreen1', other = F),
-  data.frame(task = "Go 8 hours without vaping.", foot = NA, pic = 'seagreen1', other = F),
+  # data.frame(task = "Go 8 hours without vaping.", foot = NA, pic = 'seagreen1', other = F),
   data.frame(task = "Go a day without vaping.", foot = NA, pic = 'seagreen1', other = F),
   data.frame(task = "Go 24 hours without talking.\nGood luck.", foot = NA, pic = 'seagreen1', other = F),  
   
@@ -179,9 +178,9 @@ rach_df <- list(
   data.frame(task = "Check box because you\nforgot to do a task today.", foot = NA, pic = 'yellow1', other = F),
   data.frame(task = "Check box because\nyou attempted and\nfailed a task today.", foot = NA, pic = 'yellow1', other = F),
      data.frame(task = "Let me know what is\nthe stupidest/ridiculousest\ntask on here.", foot = NA, pic = 'yellow1', other = F)
-) %>%
-  #randomize order
-  sample(size = length(.))
+)
+  # #randomize order
+  # sample(size = length(.))
 
 ```
 
@@ -196,10 +195,10 @@ plots <- map(rach_df[], function(x){
   ggplot(data)+
   geom_tile(aes(x = 0, y = 2.55, width = 0.75, height = 1,
                 fill = if (!is.na(pic)) pic else 'white'),
-            color = 'black', size = 1.5)+
+            color = 'black', size = 1)+
   geom_text(aes(label = task),
             x = 0, y = 1.95, vjust = 1, hjust = 0.5,
-            size = 5
+            size = 3
             )+
     theme_classic()+
   coord_cartesian(xlim = c(-1,1), ylim = c(0,3.5))+
@@ -208,8 +207,9 @@ plots <- map(rach_df[], function(x){
       axis.title = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
-      plot.margin=unit(c(-0.4,0,-0.5,0), "in"),
-      legend.position = 'none'
+      plot.margin=unit(c(-0.1,-.05,-0.4,-.05), "in"),
+      legend.position = 'none',
+      panel.background = element_rect(fill = 'lightcyan')
     )+
     labs(x = NULL, y = NULL)+
     scale_fill_identity()
@@ -221,7 +221,6 @@ plots_blank2 <- map(rach_df[c(1:2)], function(x){
 
   data <- x
   ggplot(data)+
-    geom_blank()+
     theme_classic()+
     coord_cartesian(xlim = c(-1,1), ylim = c(0,3.5))+
     theme(
@@ -229,7 +228,8 @@ plots_blank2 <- map(rach_df[c(1:2)], function(x){
       axis.title = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
-      plot.margin=unit(c(-0.4,0,-0.5,0), "in")
+      plot.margin=unit(c(-0.1,-.05,-0.4,-.05), "in"),
+      panel.background = element_rect(fill = 'lightcyan')
     )+
     labs(x = NULL, y = NULL)
   
@@ -279,7 +279,7 @@ plots_with_space <- c(plots[c(1:35)], plots_blank2,
 
 
   
-pdf('rach_cal.pdf', width = rach_width, height = rach_width)
+pdf('rach_cal.pdf', width = rach_width, height = rach_height)
 
 
    do.call('grid.arrange', c(plots_with_space, list(ncol = 8)))
@@ -325,7 +325,7 @@ plots <- map(rach_df[c(1:10)], function(x){
 }
 )
 
-pdf('test_img.pdf', width = rach_width, height = rach_width)
+pdf('test_img.pdf', width = rach_width, height = rach_height)
 
 
    do.call('grid.arrange', c(plots, list(ncol = 8)))
@@ -336,7 +336,7 @@ dev.off()
 # make rach_cal image
 ```{r}
 
-png('rach_cal.png', width = rach_width, height = rach_width, units = 'in', res = 220)
+png('rach_cal.png', width = rach_width, height = rach_height, units = 'in', res = 220)
 
    do.call('grid.arrange', c(plots_with_space, list(ncol = 8)))
 
@@ -345,7 +345,7 @@ dev.off()
 
 
 #combine cal and title images
-```{r, image_test, eval = TRUE}
+```{r, eval = TRUE}
 
 
 
@@ -356,7 +356,7 @@ title_img <- readPNG('title_rach.png')
 title <- grid::rasterGrob(title_img, interpolate=TRUE)
 
 
-pdf('rach_cal_final.pdf', width = rach_width, height = rach_width)
+pdf('rach_cal_final.pdf', width = rach_width, height = rach_height)
 
 ggplot()+
   annotation_custom(background, xmin=-12, xmax=12, ymin=-12, ymax=12)+
@@ -364,7 +364,7 @@ ggplot()+
   theme(
     plot.margin=unit(c(-1,-1,-1,-1), "in")
   )+
-  annotation_custom(title, xmin=-3, xmax=3, ymin=-3, ymax=6)
+  annotation_custom(title, xmin=-3, xmax=3, ymin=-.2, ymax=3.5)
   # geom_text(label = 'TEEEST', aes(x = 0, y = 1), size = 10, font)
 
 dev.off()
@@ -518,7 +518,7 @@ data.frame(task = "Turn your phone off\nfor 24 hours.", foot = NA, pic = 'seagre
   data.frame(task = "Check box because\nyou attempted and\nfailed a task today.", foot = NA, pic = 'yellow1', other = F),
      data.frame(task = "Let me know what is\nthe stupidest/ridiculousest\ntask on here.", foot = NA, pic = 'yellow1', other = F),
      data.frame(task = "Complete one of the old\nmindful tasks you\nnever completed.", foot = NA, pic = 'yellow1', other = F) 
-)%>%
+)
   #randomize order
   sample(size = length(.))
 
@@ -565,14 +565,14 @@ data.frame(task = "Turn your phone off\nfor 24 hours.", foot = NA, pic = 'seagre
 plots <- map(foco_df[], function(x){
 
 
-  data <- x
+data <- x
   ggplot(data)+
   geom_tile(aes(x = 0, y = 2.55, width = 0.75, height = 1,
                 fill = if (!is.na(pic)) pic else 'white'),
-            color = 'black', size = 1.5)+
+            color = 'black', size = 1)+
   geom_text(aes(label = task),
             x = 0, y = 1.95, vjust = 1, hjust = 0.5,
-            size = 5
+            size = 3
             )+
     theme_classic()+
   coord_cartesian(xlim = c(-1,1), ylim = c(0,3.5))+
@@ -581,8 +581,9 @@ plots <- map(foco_df[], function(x){
       axis.title = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
-      plot.margin=unit(c(-0.4,0,-0.5,0), "in"),
-      legend.position = 'none'
+      plot.margin=unit(c(-0.1,-.05,-0.4,-.05), "in"),
+      legend.position = 'none',
+      panel.background = element_rect(fill = 'lightcyan')
     )+
     labs(x = NULL, y = NULL)+
     scale_fill_identity()
@@ -602,7 +603,8 @@ plots_blank2 <- map(foco_df[c(1:2)], function(x){
       axis.title = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
-      plot.margin=unit(c(-0.4,0,-0.5,0), "in")
+      plot.margin=unit(c(-0.1,-.05,-0.4,-.05), "in"),
+      panel.background = element_rect(fill = 'lightcyan')
     )+
     labs(x = NULL, y = NULL)
   
@@ -616,13 +618,71 @@ plots_with_space <- c(plots[c(1:35)], plots_blank2,
                       plots[c(42:length(plots))])
 ```
 
-# create 2719 cal image
+# create 2719 cal pdf
 ```{r, eval = FALSE}
 
-pdf('foco_cal.pdf', width = foco_width, height = foco_width)
+pdf('foco_cal.pdf', width = foco_width, height = foco_height)
 
 
    do.call('grid.arrange', c(plots_with_space, list(ncol = 8)))
+
+dev.off()
+
+```
+
+
+# make foco_cal image
+```{r}
+
+png('foco_cal.png', width = foco_width, height = foco_height, units = 'in', res = 220)
+
+   do.call('grid.arrange', c(plots_with_space, list(ncol = 8)))
+
+dev.off()
+```
+
+
+
+#combine cal and title images
+```{r, eval = TRUE}
+
+
+
+cal_img <- readPNG('foco_cal.png')
+background <- grid::rasterGrob(cal_img, interpolate=TRUE)
+
+title_img <- readPNG('title_foco.png')
+title <- grid::rasterGrob(title_img, interpolate=TRUE)
+
+
+pdf('foco_cal_final.pdf', width = rach_width, height = rach_height)
+
+ggplot()+
+  annotation_custom(background, xmin=-12, xmax=12, ymin=-12, ymax=12)+
+  coord_cartesian(xlim = c(-12,12), ylim = c(-12,12))+
+  theme(
+    plot.margin=unit(c(-1,-1,-1,-1), "in")
+  )+
+  annotation_custom(title, xmin=-3, xmax=3, ymin=-.5, ymax=3.2)
+  # geom_text(label = 'TEEEST', aes(x = 0, y = 1), size = 10, font)
+
+dev.off()
+
+
+```
+
+# test image fr printing
+```{r}
+test_print <-
+  ggplot()+
+  geom_text(aes(x = 0, y=0), label = 'This is a test.', size = 64)+
+  coord_cartesian(xlim = c(-12, 12), ylim = c(-4,4))+
+  theme_void()
+
+
+pdf('test_print.pdf', width = 17, height = 8)
+
+test_print
 
 dev.off()
 
