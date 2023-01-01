@@ -4,8 +4,8 @@ author: "Andrew Purgiel"
 date: "11/17/2021"
 output:
   pdf_document:
-    fig_width: 24
-    fig_height: 24
+    fig_width: 7
+    fig_height: 7
 ---
 
 ```{r setup, include=FALSE}
@@ -17,173 +17,385 @@ library(png)
 library(tidyverse)
 library(ggpubr)
 library(gridExtra)
+library(lubridate)
 ```
 
 
-```{r, eval = TRUE}
-# set variables for rach_cal
-
-rach_height <- 17
-rach_width <- 17
-
-foco_height <- 17
-foco_width <- 17
-
+# import data
+```{r}
+df <- read_csv("./song_list_csv.csv")
 ```
 
-# make rach_df
+# check that there is a movie title for each movie song
 ```{r, eval = TRUE}
 
 
+movie_songs <- df %>%
+  filter(wd == "Sunday")
 
-rach_df <- list(
-  data.frame(task = "List 5 things about yourself\nthat are pretty rad.", foot = NA, pic = 'deepskyblue', other = F),
-  data.frame(task = "Name one thing you'll do\ntomorrow better than\nyou did today.", foot = NA, pic = 'deepskyblue', other = F),
-   data.frame(task = "List 10 things you're\nthankful for.", foot = NA, pic = 'deepskyblue', other = F),
-     data.frame(task = "Keep a mood diary\n for the day.", foot = NA, pic = 'deepskyblue', other = F),
-  data.frame(task = "Note 5 things in your yard\nyou've never/nnoticed before.", foot = NA, pic = 'deepskyblue', other = F),
-  data.frame(task = "Forgive yourself for\nsomething you've done.", foot = NA, pic = 'deepskyblue', other = F),
+check <- df %>%
+  filter(!is.na(movie))
   
   
-  
-  # data.frame(task = "(On a day when you're frustrated/anxious)\nRemember the feeling\nis always temporary.", foot = NA, pic = 'deepskyblue', other = F),
-  
-  
-  
-    data.frame(task = "High-5 yourself for conquering\nan anxiety attack.\nFrick yeah, buddy.", foot = NA, pic = 'deepskyblue', other = F),  
-    data.frame(task = "Reflect on your day\nfor 15 minutes.", foot = NA, pic = 'deepskyblue', other = F),  
-     data.frame(task = "Research something that\ninterests you.", foot = NA, pic = 'deepskyblue', other = F),  
-  
-  
-      data.frame(task = "Hang out by the water.", foot = NA, pic = 'deepskyblue', other = F),
-  
-  
-  
-      data.frame(task = "Sit in the sun\nfor an hour.", foot = NA, pic = 'deepskyblue', other = F),
-    # data.frame(task = "Do something purely for\nthe nostalgia.", foot = NA, pic = 'deepskyblue', other = F),  
-       data.frame(task = "Watch or listen to 15 min\neach of 'conservative'\nand 'liberal' news.", foot = NA, pic = 'deepskyblue', other = F),  
-  data.frame(task = "Do something you never\ngot the chance\nto do as a kid.", foot = NA, pic = 'deepskyblue', other = F),
-
-  data.frame(task = "Admit when you\nlose a 'debate'.\nThis might be tough.", foot = NA, pic = 'deepskyblue', other = F),
-    data.frame(task = "Follow a friend's advice.", foot = NA, pic = 'deepskyblue', other = F),
-  data.frame(task = "Go to bed early.", foot = NA, pic = 'deepskyblue', other = F),
-  
-  
-  
-       # data.frame(task = "List some goals for tomorrow.", foot = NA, pic = 'cyan', other = F),
-   data.frame(task = "List some goals for the week", foot = NA, pic = 'cyan', other = F),
-   data.frame(task = "List some goals for the year", foot = NA, pic = 'cyan', other = F),
-  data.frame(task = "Cross something off the to-do\nlist that you've been\nputting off.", foot = NA, pic = 'cyan', other = F),
-  
-  
-  data.frame(task = "Accept help from someone at\nwork with something you'd\ntypically do alone", foot = NA, pic = 'cyan', other = F),
-  
-  
-  
-  
-  data.frame(task = "Forgive someone for\nsomething they've done.", foot = NA, pic = 'palevioletred1', other = F),
-  data.frame(task = "Tell someone why you're\nhappy they're in your life.", foot = NA, pic = 'palevioletred1', other = F),  
-  data.frame(task = "Complement a stranger.", foot = NA, pic = 'palevioletred1', other = F),    
-  data.frame(task = "Call someone you haven't\nspoken to in a while.", foot = NA, pic = 'palevioletred1', other = F),    
-  data.frame(task = "Pray for 4 people.", foot = NA, pic = 'palevioletred1', other = F),    
-  data.frame(task = "Perform a random act of kindness.", foot = NA, pic = 'palevioletred1', other = F),  
-  data.frame(task = "Mail someone a letter for\nno apparent reason.", foot = NA, pic = 'palevioletred1', other = F),
-  data.frame(task = "Volunteer somewhere.\nDouble points for\nmeals on wheels.", foot = NA, pic = 'palevioletred1', other = F),
-     data.frame(task = "Spend an hour on a\ngift for someone.", foot = NA, pic = 'palevioletred1', other = F),    
-  
-  
-  
-
-
-
-  data.frame(task = "Have a zero FODMAP day,\n...if possible.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Cook something you've never\ncooked before.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Cook one of your favorite meals.", foot = NA, pic = 'chocolate1', other = F),
-      data.frame(task = "Cook a meal with your crops,\ny'old farmer lady.", foot = NA, pic = 'chocolate1', other = F),
-      data.frame(task = "Give names to some of\nyour crops. Just don't\ngrow too attached.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Cry from laughing too hard.", foot = NA, pic = 'chocolate1', other = F),
-    data.frame(task = "Throw a snowball at someone.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Drink some beer\non the porch.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Tell an inside joke that no\none who's present will get.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Throw your mashed potatoes\nup against the wall.", foot = NA, pic = 'chocolate1', other = F),    
-      data.frame(task = "Find a shooting star.", foot = NA, pic = 'chocolate1', other = F),  # data.frame(task = "Make a conscious attempt to not be the\none to break an awkward silence.", foot = NA, pic = 'chocolate1', other = F),  
-  
-  data.frame(task = "Watch the sunset\nfrom start to finish\nwithout going blind.", foot = NA, pic = 'chocolate1', other = F),
-  data.frame(task = "Watch the sunrise.", foot = NA, pic = 'chocolate1', other = F),  
-  
-  data.frame(task = "Spend time cleaning the house.\nExtra points if done\nwith Nick and Mitchell.", foot = NA, pic = 'plum2', other = F),  
-  data.frame(task = "Play some VR with Mitchell.", foot = NA, pic = 'plum2', other = F),  
-   data.frame(task = "Have a date night with the hubby.\nTell him I'm sorry for missing it.", foot = NA, pic = 'plum2', other = F),
-    data.frame(task = "Set aside a day to hang\nwith Nick and Mitchell.", foot = NA, pic = 'plum2', other = F),
-  data.frame(task = "Take Mika somewhere she's\n never walked before.", foot = NA, pic = 'plum2', other = F),  
-  data.frame(task = "Have someone else do\nthe dishes tonight, 'cause\nyou cooked, dammit.", foot = NA, pic = 'plum2', other = F),
-
-
-  
-  data.frame(task = "Turn your phone off for 4 hours.", foot = NA, pic = 'seagreen1', other = F),
-   # data.frame(task = "Turn your phone off for 8 hours.", foot = NA, pic = 'seagreen1', other = F),
-   data.frame(task = "Leave your phone at home\nwhen you go for a walk.", foot = NA, pic = 'seagreen1', other = F),  
-  data.frame(task = "Don't answer the phone today.", foot = NA, pic = 'seagreen1', other = F),
-  data.frame(task = "Don't use snapchat today.", foot = NA, pic = 'seagreen1', other = F),
-
-    data.frame(task = "Go 4 hours without vaping.", foot = NA, pic = 'seagreen1', other = F),
-  # data.frame(task = "Go 8 hours without vaping.", foot = NA, pic = 'seagreen1', other = F),
-  data.frame(task = "Go a day without vaping.", foot = NA, pic = 'seagreen1', other = F),
-  data.frame(task = "Go 24 hours without talking.\nGood luck.", foot = NA, pic = 'seagreen1', other = F),  
-  
-  data.frame(task = "Go 24 hours without alcohol.\nYou can make up\nfor it tomorrow.", foot = NA, pic = 'seagreen1', other = F), 
-  
-  
-  
-  
-  
-  
-  
-  data.frame(task = "Drive alone with no music or\nphone for 20 minutes.", foot = NA, pic = 'rosybrown1', other = F),
-  data.frame(task = "Listen to a genre of music you\ntypically don't listen to.", foot = NA, pic = 'rosybrown1', other = F),     
-  data.frame(task = "Check out some live music.", foot = NA, pic = 'rosybrown1', other = F),
-  data.frame(task = "Listen to a song while doing\nabsolutely nothing else.", foot = NA, pic = 'rosybrown1', other = F),
-     data.frame(task = "Dance to a song when\nyou're by yourself.", foot = NA, pic = 'rosybrown1', other = F),
-   data.frame(task = "Dance to a song\nwith someone else.", foot = NA, pic = 'rosybrown1', other = F),
-   data.frame(task = "COMPLETELY BELT OUT a song\n when you're by yourself.", foot = NA, pic = 'rosybrown1', other = F),  
-   data.frame(task = "Sing (or try to sing) a song\nfrom start to finish.", foot = NA, pic = 'rosybrown1', other = F),
-   data.frame(task = "Share a song with someone who\nyou think will like it.", foot = NA, pic = 'rosybrown1', other = F),
-  data.frame(task = "Make a song verse,\n or a poem, I guess...", foot = NA, pic = 'rosybrown1', other = F),  
-     data.frame(task = "Daaance byyy da liiight\no' da moooooooooon.", foot = NA, pic = 'rosybrown1', other = F),
-  
-  
-  
-
-  
-  data.frame(task = "Call a cousin unexpectedly.", foot = NA, pic = 'orangered1', other = F),
-  data.frame(task = "Start a Purgiel 15 roll call.", foot = NA, pic = 'orangered1', other = F),
-    data.frame(task = "Meet up with some\nTam Crew peeps.", foot = NA, pic = 'orangered1', other = F),
-    data.frame(task = "Make one of those weird\npickle, mayo, peanut butter,\ncheese+dorrito sammiches.", foot = NA, pic = 'orangered1', other = F),
-  
-     data.frame(task = "Make (or attempt) a dying\ncow noise. Bonus points if\n while picking up Mitchell.", foot = NA, pic = 'orangered1', other = F),
-     data.frame(task = "Do something in public\nto embarass Mitchell.", foot = NA, pic = 'orangered1', other = F),
-       data.frame(task = "Do something in public\nto embarass Nick.", foot = NA, pic = 'orangered1', other = F),
-  data.frame(task = "List all the Popsisms\nyou can think of.", foot = NA, pic = 'orangered1', other = F),
-      data.frame(task = "Watch a VHS/something\nwe used to have on VHS.", foot = NA, pic = 'orangered1', other = F),   
-  data.frame(task = "Play some dice. YARRRRR!", foot = NA, pic = 'orangered1', other = F),
-  data.frame(task = "Complete a puzzle.", foot = NA, pic = 'orangered1', other = F),
-  
-  data.frame(task = "Speak French to someone\nfor >2 minutes. No,\nit doesn't have to make sense.", foot = NA, pic = 'orangered1', other = F),
- 
-  
-  
-
-    data.frame(task = "Complete a task that\nyou've failed at previously.", foot = NA, pic = 'yellow1', other = F),  
-  data.frame(task = "Check box because you were\ntoo lazy to do a task today.", foot = NA, pic = 'yellow1', other = F),  
-  data.frame(task = "Check box because you\nforgot to do a task today.", foot = NA, pic = 'yellow1', other = F),
-  data.frame(task = "Check box because\nyou attempted and\nfailed a task today.", foot = NA, pic = 'yellow1', other = F),
-     data.frame(task = "Let me know what is\nthe stupidest/ridiculousest\ntask on here.", foot = NA, pic = 'yellow1', other = F)
-)
   # #randomize order
   # sample(size = length(.))
 
 ```
 
+# make date/weekday df
+```{r}
+
+day_df <- 
+  data.frame(
+    date = seq(
+  ymd("2023-01-01"), 
+  ymd("2023-12-31"),
+  by = '2 days')
+  ) %>%
+  mutate( wd = weekdays(date))
+
+
+```
+
+
+# assign birthday, sundays, and special other dates?
+# assign movie song to every other Sunday
+```{r}
+# date df of every other sunday
+dates_sun <- day_df %>%
+  filter(wd == "Sunday")
+
+odd_sun_rows <- seq(1, nrow(dates_sun), 2)
+
+dates_sun <- dates_sun[odd_sun_rows, ]
+
+
+
+# make dfs without special days
+songs_filt <- df %>%
+  filter(title != "In Da Club") %>% # w/o birthday song
+  filter(wd != "Sunday" | is.na(wd)) %>% # w/o movie songs
+  select(-wd)
+
+
+days_filt <- day_df %>%
+  filter(date != "2023-01-22") %>% # w/o birthday
+  filter( !(date %in% pull(dates_sun, date))) # w/o every 4th sunday
+
+df_filt <- songs_filt %>%
+  cbind(days_filt)%>%
+  #randomize row order
+  mutate(date = sample(date))
+
+
+
+
+# identify birthday song
+bday <- df %>%
+    filter(title == "In Da Club") %>%
+  mutate(date = ymd("2023-01-22"))
+
+
+# make dataframe of sunday songs
+sun_songs <- df %>%
+    filter(title != "In Da Club") %>% # don't include birthday song
+  filter(wd == "Sunday") %>%
+  select(-wd)
+
+
+sundays <- dates_sun %>%
+  cbind(sun_songs) %>%
+  #randomize row order
+  mutate(date = sample(date))
+
+# make final df
+df_final <- df_filt %>%
+  rbind(sundays, bday) %>%
+  select(date, everything()) %>%
+  arrange(date)
+
+```
+
+
+* set parameters for plots
+```{r}
+
+# from calendar code
+sheet_width <- 5.25
+sheet_height <- 4.25
+
+
+# text sizes
+small <- 8
+medium <- small*1.5
+large <- small*2
+xlarge <- small *8
+
+```
+
+
+* layout sheets
+** date, lyrics on one side
+** song, artist, and movie on other side
+```{r, fig.width=sheet_width,  fig.height=sheet_height}
+
+a <- df_final[1,]
+
+
+b <- a %>%
+  # add return in line if more than 50 char in line
+  # https://stackoverflow.com/questions/2351744/insert-line-breaks-in-long-string-word-wrap
+  mutate(lyrics = paste(strwrap(lyrics,50), collapse="\n"))
+
+
+ggplot(b)+
+    geom_text( x = 0.5, y = 1,
+             hjust = 0.5, vjust = 1,
+             size = medium,
+             aes(label = month.abb[month(date)]))+
+  geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+    geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+  # add note for cinema sunday
+  {if(!is.na(b$movie))geom_text( x = 0.1, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = 55,label = "Cinema")
+    }+
+  {if(!is.na(b$movie))geom_text( x = 0.9, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = -55,label = "Sunday")
+    }+
+      geom_text( x = 0.5, y = 0.27,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = dQuote(lyrics)))
+
+plot.new()
+
+#answer
+ggplot(b)+
+      geom_text( x = 0.5, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Song:", title)))+
+  # add movie title if it is cinema sunday
+               {if(!is.na(b$movie))geom_text( x = 0.5, y = 0.4,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Movie:", movie)))
+               }+
+      geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Artist:", artist)))
+plot.new()
+
+  
+```
+
+
+* apply to each row
+```{r, fig.width=sheet_width,  fig.height=sheet_height}
+
+a <- df_final[1:2,]
+
+
+make_sheets <- function(x) {
+
+
+  b <- x %>%
+  # add return in line if more than 50 char in line
+  # https://stackoverflow.com/questions/2351744/insert-line-breaks-in-long-string-word-wrap
+  mutate(lyrics = paste(strwrap(lyrics,50), collapse="\n"))
+
+  pdf("test_file.pdf")
+
+ pg1 <- ggplot(b)+
+    geom_text( x = 0.5, y = 1,
+             hjust = 0.5, vjust = 1,
+             size = medium,
+             aes(label = month.abb[month(date)]))+
+  geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+    geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+  # add note for cinema sunday
+  {if(!is.na(b$movie))geom_text( x = 0.1, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = 55,label = "Cinema")
+    }+
+  {if(!is.na(b$movie))geom_text( x = 0.9, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = -55,label = "Sunday")
+    }+
+      geom_text( x = 0.5, y = 0.27,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = dQuote(lyrics)))
+
+ print(pg1)
+
+#answer
+ggplot(b)+
+      geom_text( x = 0.5, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Song:", title)))+
+  # add movie title if it is cinema sunday
+               {if(!is.na(b$movie))geom_text( x = 0.5, y = 0.4,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Movie:", movie)))
+               }+
+      geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Artist:", artist)))
+
+dev.off()
+
+}
+
+  a %>%
+  rowwise() %>%
+  make_sheets()
+
+
+ # note, if I don't use print() func, I get no pages in pdf
+  # but I how separate pages?
+ 
+  
+  
+  make_sheets <- function(dat, row_num) {
+
+    # pick out one row of data
+    a <- dat[row_num, ]
+
+  b <- a %>%
+  # add return in line if more than 50 char in line
+  # https://stackoverflow.com/questions/2351744/insert-line-breaks-in-long-string-word-wrap
+  mutate(lyrics = paste(strwrap(lyrics,50), collapse="\n"))
+
+  pdf("test_file.pdf")
+
+ pg1 <- ggplot(b)+
+    geom_text( x = 0.5, y = 1,
+             hjust = 0.5, vjust = 1,
+             size = medium,
+             aes(label = month.abb[month(date)]))+
+  geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+    geom_text( x = 0.5, y = 0.8,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+  # add note for cinema sunday
+  {if(!is.na(b$movie))geom_text( x = 0.1, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = 55,label = "Cinema")
+    }+
+  {if(!is.na(b$movie))geom_text( x = 0.9, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = -55,label = "Sunday")
+    }+
+      geom_text( x = 0.5, y = 0.27,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = dQuote(lyrics)))
+
+ print(pg1)
+
+#answer
+ggplot(b)+
+      geom_text( x = 0.5, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Song:", title)))+
+  # add movie title if it is cinema sunday
+               {if(!is.na(b$movie))geom_text( x = 0.5, y = 0.4,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Movie:", movie)))
+               }+
+      geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 1,
+             size = small,
+             aes(label = paste("Artist:", artist)))
+
+dev.off()
+
+}
+
+  price <- function(val){
+
+  val <- tolower(val)
+  myrow <- fruit[val,]
+  nation <- tools::toTitleCase(val)
+  score.min <- c(myrow)[which.min(c(myrow))]
+
+  cat(paste0("In ", nation, " cheapest fruit costs ", score.min, " cents."))
+
+}
+
+
+
+write_lines_pdf <- function(x, file = "pdffile", ...) {
+    if (!grepl("\\.pdf$", file)) file <- paste0(file, ".pdf") # append .pdf if not present
+    pdf(file)
+    plot.new()
+    text(x = 0, y = 1, labels = paste(x, collapse = "\n"), adj = c(0, 1), ...)   
+    dev.off()
+}
+
+for(nm in rownames(fruit)) write_lines_pdf(capture.output(price(nm)), nm)
+
+ 
+ 
+
+
+canada <- c(100, 80, 100, 100, 20)
+korea <- c(100, 80, 100, 26, 65)
+brazil <- c(100, 90, 100, 30, 30)
+fruit <- rbind(canada, korea, brazil)
+colnames(fruit) <- c("apple", "orange", "banana", "grape", "kiwi")
+fruit
+
+price <- function(val){
+
+  val <- tolower(val)
+  myrow <- fruit[val,]
+  nation <- tools::toTitleCase(val)
+  score.min <- c(myrow)[which.min(c(myrow))]
+
+  cat(paste0("In ", nation, " cheapest fruit costs ", score.min, " cents."))
+
+}
+
+
+
+write_lines_pdf <- function(x, file = "pdffile", ...) {
+    if (!grepl("\\.pdf$", file)) file <- paste0(file, ".pdf") # append .pdf if not present
+    pdf(file)
+    plot.new()
+    text(x = 0, y = 1, labels = paste(x, collapse = "\n"), adj = c(0, 1), ...)   
+    dev.off()
+}
+
+for(nm in rownames(fruit)) write_lines_pdf(capture.output(price(nm)), nm)
+
+
+```
 
 
 # make rach_plot list
