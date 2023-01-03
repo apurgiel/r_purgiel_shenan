@@ -49,8 +49,8 @@ check <- df %>%
 day_df <- 
   data.frame(
     date = seq(
-  ymd("2023-01-01"), 
-  ymd("2023-12-31"),
+  ymd("2023-01-15"), 
+  ymd("2024-01-14"),
   by = '2 days')
   ) %>%
   mutate( wd = weekdays(date))
