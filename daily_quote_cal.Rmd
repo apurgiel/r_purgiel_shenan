@@ -201,12 +201,34 @@ pg2 <- ggplot(b)+
 print(pg2)
 }
 
-  pdf("test_file.pdf", width = 5.25, height = 4.25)
+
+# make pdf file of calendar
+ 
+
+pdf("test_file.pdf", width = 5.25, height = 4.25)
+ 
+    #plot cover page
+ggplot(b)+
+    geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 0,
+             size = medium,
+             label = 'The Semi-Daily\n"What the heck is that Song?"\n Calendar')+
+        geom_text( x = 0.025, y = 0.1,
+             hjust = 0, vjust = 0,
+             size = xsmall,
+             label = paste0("Instructions:\n\n",
+             "Guess the song and artist from which the lyrics originate.\n",
+                            "For Cinema Sundays, ",
+                            "guess what movie the song is from as well.\n",
+                            "Answers are on the back of each page.")
+                            )+
+  theme_bw()
   
+# plot all other pages
   for(x in rownames(df_final)) make_sheets(x) %>% print()
+
   
   dev.off()
-
 
 
  
