@@ -154,7 +154,7 @@ xlarge <- small *8
   mutate(lyrics = paste(strwrap(lyrics,36), collapse="\n"))
 
 #  lyrics and date page
- pg1 <-  ggplot(b)+
+  pg1 <- ggplot(b)+
     geom_text( x = 0.5, y = 0.9,
              hjust = 0.5, vjust = 1,
              size = medium,
@@ -178,10 +178,8 @@ xlarge <- small *8
              aes(label = dQuote(lyrics)))+
    theme_bw()
  
-  print(pg1)
-
 #answer page
-pg2 <- ggplot(b)+
+ pg2 <- ggplot(b)+
       geom_text( x = 0.5, y = 0.6,
              hjust = 0.5, vjust = 1,
              size = xsmall,
@@ -198,8 +196,9 @@ pg2 <- ggplot(b)+
              aes(label = paste("Artist:", artist)))+
      theme_bw()
 
-print(pg2)
-}
+return(list(pg1, pg2))
+ 
+ }
 
 
 # make pdf file of calendar
@@ -223,7 +222,7 @@ ggplot(b)+
                             "Answers are on the back of each page.")
                             )+
   theme_bw()
-  
+
 # plot all other pages
   for(x in rownames(df_final)) make_sheets(x) %>% print()
 
@@ -232,41 +231,11 @@ ggplot(b)+
 
 
  
- # Example for how to print pdf row by row:
-  # from https://stackoverflow.com/questions/46007357/generating-a-pdf-document-for-every-row -------
-# 
-# canada <- c(100, 80, 100, 100, 20)
-# korea <- c(100, 80, 100, 26, 65)
-# brazil <- c(100, 90, 100, 30, 30)
-# fruit <- rbind(canada, korea, brazil)
-# colnames(fruit) <- c("apple", "orange", "banana", "grape", "kiwi")
-# fruit
-# 
-# price <- function(val){
-# 
-#   val <- tolower(val)
-#   myrow <- fruit[val,]
-#   nation <- tools::toTitleCase(val)
-#   score.min <- c(myrow)[which.min(c(myrow))]
-# 
-#   cat(paste0("In ", nation, " cheapest fruit costs ", score.min, " cents."))
-# 
-# }
-# 
-# 
-# 
-# write_lines_pdf <- function(x, file = "pdffile", ...) {
-#     if (!grepl("\\.pdf$", file)) file <- paste0(file, ".pdf") # append .pdf if not present
-#     pdf(file)
-#     plot.new()
-#     text(x = 0, y = 1, labels = paste(x, collapse = "\n"), adj = c(0, 1), ...)   
-#     dev.off()
-# }
-# 
-# for(nm in rownames(fruit)) write_lines_pdf(capture.output(price(nm)), nm)
-
+ # Additional Example for how to print pdf row by row:
+  # https://stackoverflow.com/questions/46007357/generating-a-pdf-document-for-every-row 
 
 ```
+
 
 
 # make rach_plot list
