@@ -140,7 +140,138 @@ xlarge <- small *8
 ** date, lyrics on one side
 ** song, artist, and movie on other side
 ** apply to each row
+* 8 faces on each double sided 8.5x11 printed page
 ```{r, fig.width=sheet_width,  fig.height=sheet_height}
+
+
+  make_sheets <- function(row_num) {
+
+    # pick out one row of data
+    a <- df_final[row_num, ]
+
+  b <- a %>%
+  # add return in line if more than 50 char in line
+  # https://stackoverflow.com/questions/2351744/insert-line-breaks-in-long-string-word-wrap
+  mutate(lyrics = paste(strwrap(lyrics,36), collapse="\n"))
+
+#  lyrics and date page
+  pg1 <- ggplot(b)+
+    geom_text( x = 0.5, y = 0.9,
+             hjust = 0.5, vjust = 1,
+             size = medium,
+             aes(label = month.abb[month(date)]))+
+    geom_text( x = 0.5, y = 0.75,
+             hjust = 0.5, vjust = 1,
+             size = xlarge,
+             aes(label = day(date)))+
+  # add note for cinema sunday
+  {if(!is.na(b$movie))geom_text( x = 0.1, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = 55,label = "Cinema")
+    }+
+  {if(!is.na(b$movie))geom_text( x = 0.9, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = large, angle = -55,label = "Sunday")
+    }+
+      geom_text( x = 0.5, y = 0.17,
+             hjust = 0.5, vjust = 0.5,
+             size = small,
+             aes(label = dQuote(lyrics)))+
+   theme_bw()
+ 
+#answer page
+ pg2 <- ggplot(b)+
+      geom_text( x = 0.5, y = 0.6,
+             hjust = 0.5, vjust = 1,
+             size = xsmall,
+             aes(label = paste("Song:", title)))+
+  # add movie title if it is cinema sunday
+               {if(!is.na(b$movie))geom_text( x = 0.5, y = 0.4,
+             hjust = 0.5, vjust = 1,
+             size = xsmall,
+             aes(label = paste("Movie:", movie)))
+               }+
+      geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 1,
+             size = xsmall,
+             aes(label = paste("Artist:", artist)))+
+     theme_bw()
+
+return(list(pg1, pg2))
+ 
+ }
+
+
+# make an empty list
+a <- vector(mode = "list", length = 0)
+
+# fill list with sheets
+    for(i in rownames(df_final)) a[[i]] <- make_sheets(i)
+a <- flatten(a)
+
+    #add cover page
+b <- ggplot(data.frame(NA, NA))+
+    geom_text( x = 0.5, y = 0.5,
+             hjust = 0.5, vjust = 0,
+             size = medium,
+             label = 'The Semi-Daily\n"What the heck is that Song?"\n Calendar')+
+        geom_text( x = 0.025, y = 0.1,
+             hjust = 0, vjust = 0,
+             size = xsmall,
+             label = paste0("Instructions:\n\n",
+             "Guess the song and artist from which the lyrics originate.\n",
+                            "For Cinema Sundays, ",
+                            "guess what movie the song is from as well.\n",
+                            "Answers are on the back of each page.")
+                            )+
+  theme_bw()
+
+b <- lst('cover' = b)
+
+# make pdf file of cover page
+
+pdf("cover.pdf", width = 11, height = 8.5)
+
+do.call("grid.arrange", c(b, ncol=2, nrow = 2))
+
+  dev.off()
+  
+  
+  # make pdf file of other pages
+
+  ## arrange so that double-sided printing will work
+c <- vector(mode = "list", length = 368)
+
+# should be 46 (i = 0:45) double sided pages
+for(i in c(0:45)) {
+  
+c[[(1+8*i)]] <- a[[(1+8*i)]]
+c[[(2+8*i)]] <- a[[(3+8*i)]]
+c[[(3+8*i)]] <- a[[(5+8*i)]]
+c[[(4+8*i)]] <- a[[(7+8*i)]]
+c[[(5+8*i)]] <- a[[(4+8*i)]]
+c[[(6+8*i)]] <- a[[(2+8*i)]]
+c[[(7+8*i)]] <- a[[(8+8*i)]]
+c[[(8+8*i)]] <- a[[(6+8*i)]]
+}
+
+# make pages
+for(i in c(0:91)) {
+  
+  pdf(paste0( i, ".pdf"), width = 11, height = 8.5)
+
+do.call("grid.arrange", c(c[(1+4*i):(4+4*i)], ncol=2))
+# Sys.sleep(0.1)
+dev.off()
+}
+
+
+
+```
+
+
+# Old code
+```{r, fig.width=sheet_width,  fig.height=sheet_height, eval = FALSE}
 
 
   make_sheets <- function(row_num) {
@@ -235,7 +366,6 @@ ggplot(b)+
   # https://stackoverflow.com/questions/46007357/generating-a-pdf-document-for-every-row 
 
 ```
-
 
 
 # make rach_plot list
